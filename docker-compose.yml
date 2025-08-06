@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  webapp:
+    build:
+      context: ./webapp
+      args:
+        NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+    network_mode: bridge
+    environment:
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}
+      - NGROK_URL=${NGROK_URL}
