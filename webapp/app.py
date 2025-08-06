@@ -12,7 +12,11 @@ rclpy.init()
 class WebPublisher(Node):
     def __init__(self):
         super().__init__('web_publisher')
-        self.publisher = self.create_publisher(String, '/hunter_003/navigation/crop_care', 10)
+        rdi = os.getenv('ROS_DOMAIN_ID')
+        topic_name = os.getenv('BARCODE_ROS2_TOPIC_NAME')
+        self.publisher = self.create_publisher(String, topic_name, 10)
+        self.get_logger().info(f'Publishing on ROS Domain: {rdi}')
+        self.get_logger().info(f'Publishing on topic name: {topic_name}')
 
     def publish_text(self, text):
         msg = String()

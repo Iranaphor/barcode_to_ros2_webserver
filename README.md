@@ -8,6 +8,7 @@ To start the system:
 export NGROK_AUTHTOKEN='enter your auth token here'
 export NGROK_URL='enter-your-url-here.ngrok-free.app'
 export ROS_DOMAIN_ID='enter your ros2 domain id here'
+export BARCODE_ROS2_TOPIC_NAME='/your/ros2_topic/name/here'
 ```
 
 ```sh
@@ -30,3 +31,5 @@ webapp-1  | [INFO] [1754489702.613275782] [web_publisher]: Published: "my_qr_cod
 ```
 
 This should be accessible on your ROS2 humble terminal by echoing the topic it publishes to.
+
+Note while this is designed for a barcode such as (THIS)[https://amzn.eu/d/edl1cSl], the webserver will also work with keyboard input, only sending what is typed once the carridge return is pressed.

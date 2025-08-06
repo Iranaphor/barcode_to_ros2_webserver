@@ -8,5 +8,6 @@ services:
         NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
     network_mode: bridge
     environment:
-      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}
       - NGROK_URL=${NGROK_URL}
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}
+      - BARCODE_ROS2_TOPIC_NAME=${BARCODE_ROS2_TOPIC_NAME}
