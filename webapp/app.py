@@ -125,6 +125,18 @@ HTML = '''
 
       // Wake Lock API
       let wakelock = null;
+
+      function getOrCreateUUID() {
+        let uuid = localStorage.getItem('uuid');
+        if (!uuid) {
+          uuid = crypto.randomUUID();
+          localStorage.setItem('uuid', uuid);
+        }
+        return uuid;
+      }
+
+      const uuid = getOrCreateUUID();
+
       async function enableWakeLock() {
         try {
           wakelock = await navigator.wakeLock.request('screen');
@@ -188,7 +200,7 @@ HTML = '''
             fetch("/submit", {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              body: "text=" + encodeURIComponent(text)
+              body: "text=" + encodeURIComponent(text) + "&uuid=" + encodeURIComponent(uuid)
             }).then(() => {
               const line = document.createElement("div");
               line.textContent = text;
@@ -218,7 +230,8 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit():
     text = request.form['text']
-    node.publish_text(text)
+    uuid = request.form.get('uuid', 'unknown')
+    node.publish_text(f'{uuid}~{text}')
     return '', 204
 
 if __name__ == '__main__':
